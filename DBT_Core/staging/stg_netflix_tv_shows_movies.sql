@@ -1,5 +1,4 @@
-config {{materialized='view'}}
-
+{{ config(materialized='view', schema='staging') }}
 
 select
 cast(index AS INT) as index,
@@ -17,9 +16,9 @@ cast(ingest_dt AS TIMESTAMP) as ingest_dt,
 cast(_rescued_data AS STRING) as _rescued_data,
 cast(_source_name AS STRING) as _source_name,
 cast(_dataset_name AS STRING) as _dataset_name,
-cast(_source_file_path AS STRING) as _source_file_path
-_ingestion_timestamp
-_ingestion_date
-_run_id
+cast(_source_file_path AS STRING) as _source_file_path,
+cast(_ingestion_timestamp AS TIMESTAMP) as _ingestion_timestamp,
+cast(_ingestion_date AS DATE) as _ingestion_date,
+cast(_run_id AS STRING) as _run_id
 
-from {{source('bronze','netflix_tv_shows_movies')}}
+from {{ source('bronze','netflix_tv_shows_movies') }}

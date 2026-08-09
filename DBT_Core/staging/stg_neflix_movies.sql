@@ -1,23 +1,23 @@
-config{{materialized='view'}}
+{{ config(materialized='view', schema='staging') }}
 
-select 
-Cast(title AS STRING) as title,
-Cast(year AS INTEGER) as year,
-Cast(certificate AS STRING) as certificate,
-Cast(duration AS STRING) as duration,
-Cast(genre AS STRING) as genre,
-Cast(rating AS DOUBLE) as rating,
-description,
-Cast(stars AS STRING) as stars,
-Cast(votes AS BIGINT) as votes,
-Cast(ingest_dt AS TIMESTAMP) as ingest_dt,
-Cast(_rescued_data AS STRING) as _rescued_data,
-Cast(_source_name AS STRING) as _source_name,
-Cast(_dataset_name AS STRING) as _dataset_name,
-Cast(_source_file_name AS STRING) as _source_file_name,
-Cast(_ingestion_timestamp AS TIMESTAMP) as _ingestion_timestamp,
-_ingestion_date
-_run_id
-_source_file_path
+select
+cast(title AS STRING) as title,
+cast(year AS INTEGER) as year,
+cast(certificate AS STRING) as certificate,
+cast(duration AS STRING) as duration,
+cast(genre AS STRING) as genre,
+cast(rating AS DOUBLE) as rating,
+cast(description AS STRING) as description,
+cast(stars AS STRING) as stars,
+cast(votes AS BIGINT) as votes,
+cast(ingest_dt AS TIMESTAMP) as ingest_dt,
+cast(_rescued_data AS STRING) as _rescued_data,
+cast(_source_name AS STRING) as _source_name,
+cast(_dataset_name AS STRING) as _dataset_name,
+cast(_source_file_name AS STRING) as _source_file_name,
+cast(_ingestion_timestamp AS TIMESTAMP) as _ingestion_timestamp,
+cast(_ingestion_date AS DATE) as _ingestion_date,
+cast(_run_id AS STRING) as _run_id,
+cast(_source_file_path AS STRING) as _source_file_path
 
-from {{source('bronze','netflix_movies')}}
+from {{ source('bronze','netflix_movies') }}
